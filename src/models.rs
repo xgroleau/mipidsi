@@ -10,7 +10,7 @@ use embedded_graphics_core::prelude::RgbColor;
 use embedded_hal::{delay::DelayUs, digital::OutputPin};
 
 // existing model implementations
-// mod gc9a01;
+mod gc9a01;
 // mod ili9341;
 // mod ili9342c;
 // mod ili934x;
@@ -18,7 +18,7 @@ use embedded_hal::{delay::DelayUs, digital::OutputPin};
 // mod st7735s;
 mod st7789;
 
-// pub use gc9a01::*;
+pub use gc9a01::*;
 // pub use ili9341::*;
 // pub use ili9342c::*;
 // pub use ili9486::*;

@@ -147,6 +147,16 @@ impl Model for GC9A01 {
         dcs.di.send_data(buf)?;
         Ok(())
     }
+
+    fn write_pixels_raw<DI>(&mut self, dcs: &mut Dcs<DI>, colors: &mut [u16]) -> Result<(), Error>
+    where
+        DI: WriteOnlyDataCommand,
+    {
+        dcs.write_command(WriteMemoryStart)?;
+        let buf = DataFormat::U16BE(colors);
+        dcs.di.send_data(buf)?;
+        Ok(())
+    }
 }
 
 // simplified constructor on Display
