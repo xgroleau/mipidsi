@@ -246,7 +246,13 @@ where
     fn set_address_window(&mut self, sx: u16, sy: u16, ex: u16, ey: u16) -> Result<(), Error> {
         // add clipping offsets if present
         let offset = self.options.window_offset();
-        let (sx, sy, ex, ey) = (sx + offset.0, sy + offset.1, ex + offset.0, ey + offset.1);
+        let fb_size = self.options.framebuffer_size();
+        let (sx, sy, ex, ey) = (
+            (sx + offset.0) % fb_size.0,
+            (sy + offset.1) % fb_size.1,
+            (ex + offset.0) % fb_size.0,
+            (ey + offset.1) % fb_size.1,
+        );
 
         self.dcs.write_command(dcs::SetColumnAddress::new(sx, ex))?;
         self.dcs.write_command(dcs::SetPageAddress::new(sy, ey))
